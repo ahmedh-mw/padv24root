@@ -1,0 +1,44 @@
+workflow:
+  name: GitLab MATLAB Pipeline
+
+stages:
+  - SimulinkPipelineGenerationStage
+  - SimulinkPipelineExecution
+
+variables:
+  # MW_SUPPORT_PACKAGE_ROOT: 'D:/sb/bslcicd_0118/matlab'
+  # MW_SUPPORT_PACKAGE_ROOT: "/home/matlab/Documents/MATLAB/SupportPackages/R2025b"
+  MW_SUPPORT_PACKAGE_ROOT: "/home/ahmedh/Documents/MATLAB/SupportPackages/R2025b"
+  MW_RELATIVE_PROJECT_PATH: "level1-a/level2/ProcessAdvisorProjectReferenceExample/"    # e.g. "" or "relative/path/to/project/"
+  MW_REMOTE_BUILD_CACHE_NAME: "gitlab_root2" 
+  MW_PIPELINE_GEN_DIRECTORY: _pipelineGen_
+  # Note: You should never hardcode secrets or tokens in the YAML file.
+  # For JFrog Artifactory storage services, You need to set the JFrog API token in GitLab CI/CD variables with 'ARTIFACTORY_API_TOKEN' ID.
+  # For S3 storage services, you need to set AWS S3 access key in GitLab CI/CD variables with 'S3_AWS_SECRET_ACCESS_KEY' ID.
+  # For Azure Blob storage services, you need to set the Azure storage account connection string in GitLab CI/CD variables with the 'AZ_CONNECTION_STRING' ID.
+SPGeneration:
+  stage: SimulinkPipelineGenerationStage
+  variables:
+    MW_PIPELINE_UTIL_PATH: "${MW_SUPPORT_PACKAGE_ROOT}/toolbox/padv/pipeline_generator/ci"
+  tags: ["padv_wsl_agents"]
+  script:
+    - >
+      python3 -c "import shutil,os;os.makedirs(r'$MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY', exist_ok=True); 
+      shutil.copytree(r'$MW_PIPELINE_UTIL_PATH/templates/gitlab/_pipelineGen_', r'$MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY', dirs_exist_ok=True)" 
+    - matlab -batch "addpath('$CI_PROJECT_DIR');generate_gitlab_pipeline();"
+    - python3 "$MW_PIPELINE_UTIL_PATH/py/prepare.py" --pipeline_prepare --platform gitlab
+  artifacts:
+    paths: ["$MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY/"]
+
+SimulinkPipelineExecution:
+  stage: SimulinkPipelineExecution
+  needs: [SPGeneration]
+  trigger:
+    include:
+      - artifact: $MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY/simulink_pipeline.yml
+        job: SPGeneration
+    strategy: depend
+  # Do not change the name of these variables, they are used to identify the root pipeline ID in the downstream jobs.
+  variables:
+    MW_PIPELINE_ROOT_PIPELINE_ID: $CI_PIPELINE_ID
+    MW_PIPELINE_ROOT_PIPELINE_IID: $CI_PIPELINE_IID
