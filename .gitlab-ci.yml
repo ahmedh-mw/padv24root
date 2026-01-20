@@ -9,8 +9,8 @@ variables:
   # MW_SUPPORT_PACKAGE_ROOT: 'D:/sb/bslcicd_0118/matlab'
   # MW_SUPPORT_PACKAGE_ROOT: "/home/matlab/Documents/MATLAB/SupportPackages/R2025b"
   MW_SUPPORT_PACKAGE_ROOT: "/home/ahmedh/Documents/MATLAB/SupportPackages/R2025b"
-  MW_RELATIVE_PROJECT_PATH: "level1-a/level2/ProcessAdvisorProjectReferenceExample/"    # e.g. "" or "relative/path/to/project/"
-  MW_REMOTE_BUILD_CACHE_NAME: "gitlab_root2" 
+  MW_RELATIVE_PROJECT_PATH: "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/"    # e.g. "" or "relative/path/to/project/"
+  MW_REMOTE_BUILD_CACHE_NAME: "gitlab_root3" 
   MW_PIPELINE_GEN_DIRECTORY: _pipelineGen_
   # Note: You should never hardcode secrets or tokens in the YAML file.
   # For JFrog Artifactory storage services, You need to set the JFrog API token in GitLab CI/CD variables with 'ARTIFACTORY_API_TOKEN' ID.
