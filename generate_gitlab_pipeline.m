@@ -9,7 +9,7 @@ function generate_gitlab_pipeline()
 
     cp = openProject(strcat(workspace,filesep,string(relativeProjectPath)));
     op = padv.pipeline.GitLabOptions;
-    op.Tags = "padv_wsl_agents";
+    op.Tags = "padv_linux_vm_agents";
     op.PipelineArchitecture = "IndependentModelPipelines";
     op.GeneratorVersion = 2;
     op.SupportPackageRoot = supportPackageRoot;
@@ -34,8 +34,8 @@ function generate_gitlab_pipeline()
     % op.ImageTag = '<Docker Image full name>';
 
     % Docker image settings
-    % op.MatlabLaunchCmd = "xvfb-run -a matlab -batch"; 
-    op.MatlabLaunchCmd = "matlab -batch"; 
+    op.MatlabLaunchCmd = "xvfb-run -a matlab-batch"; 
+    % op.MatlabLaunchCmd = "matlab -batch"; 
     op.MatlabStartupOptions = "";
     op.AddBatchStartupOption = false;
     padv.pipeline.generatePipeline(op, "CIPipeline");
