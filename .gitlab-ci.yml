@@ -26,7 +26,7 @@ SPGeneration:
     - >
       python3 -c "import shutil,os;os.makedirs(r'$MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY', exist_ok=True); 
       shutil.copytree(r'$MW_PIPELINE_UTIL_PATH/templates/gitlab/_pipelineGen_', r'$MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY', dirs_exist_ok=True)" 
-    - matlab -batch "addpath('$CI_PROJECT_DIR');generate_gitlab_pipeline();"
+    - matlab-batch "addpath('$CI_PROJECT_DIR');generate_gitlab_pipeline();"
     - python3 "$MW_PIPELINE_UTIL_PATH/py/prepare.py" --pipeline_prepare --platform gitlab
   artifacts:
     paths: ["$MW_RELATIVE_PROJECT_PATH$MW_PIPELINE_GEN_DIRECTORY/"]
