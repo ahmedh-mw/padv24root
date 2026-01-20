@@ -16,6 +16,7 @@ variables:
   # For JFrog Artifactory storage services, You need to set the JFrog API token in GitLab CI/CD variables with 'ARTIFACTORY_API_TOKEN' ID.
   # For S3 storage services, you need to set AWS S3 access key in GitLab CI/CD variables with 'S3_AWS_SECRET_ACCESS_KEY' ID.
   # For Azure Blob storage services, you need to set the Azure storage account connection string in GitLab CI/CD variables with the 'AZ_CONNECTION_STRING' ID.
+  GIT_SUBMODULE_STRATEGY: recursive
 SPGeneration:
   stage: SimulinkPipelineGenerationStage
   variables:

@@ -21,6 +21,7 @@ function generate_gitlab_pipeline()
     op.RemoteBuildCacheName = remoteBuildCacheName;
     op.CacheFallbackBranches = ["master", "main", "develop"];
     op.UpstreamJobName = "SPGeneration";
+    op.CheckoutSubmodules = 'recursive';
 
     op.ArtifactServiceMode = 'azure_blob';         % network/jfrog/s3/azure_blob
     % op.NetworkStoragePath = '<Network storage path>';
