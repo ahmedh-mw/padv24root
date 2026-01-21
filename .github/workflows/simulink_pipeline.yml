@@ -24,6 +24,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with: 
+          submodules: 'recursive' 
+          fetch-depth: 0
       - name: Copy workflow files
         run: >
           python3 -c "import shutil,os; os.makedirs(r'${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}', exist_ok=True); 

@@ -15,13 +15,9 @@
     "UseMatlabPlugin": false,
     "EnableArtifactCollection": "always",
     "ShellEnvironment": "bash",
-    "CheckoutSubmodules": "false",
+    "CheckoutSubmodules": "recursive",
     "TemplatePath": "./.github/workflows/generic-job.yml",
     "RunprocessCommandOptions": {
-      "DryRunLicenseCheckout": false,
-      "RefreshProcessModel": true,
-      "GenerateReport": false,
-      "ReanalyzeProjectAnalysisIssues": true,
       "ExitInBatchMode": false,
       "EnableTaskLogging": true,
       "Force": false,
@@ -39,7 +35,11 @@
       "ReportPath": "ProcessAdvisorReport",
       "DeleteOutputs": false,
       "MarkStale": false,
-      "DryRun": false
+      "DryRun": false,
+      "DryRunLicenseCheckout": false,
+      "RefreshProcessModel": true,
+      "GenerateReport": false,
+      "ReanalyzeProjectAnalysisIssues": true
     },
     "PipelineArchitecture": "IndependentModelPipelines",
     "MatlabLaunchCmd": "xvfb-run -a matlab-batch",
