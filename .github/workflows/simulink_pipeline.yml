@@ -10,7 +10,7 @@ on: # You must define at least one trigger for each workflow.
     # reopened: This triggers the workflow when a previously closed pull request is reopened
     types: [opened, synchronize, reopened]
 env:
-  MW_SUPPORT_PACKAGE_ROOT: '/home/ahmedh/Documents/MATLAB/SupportPackages/R2025b'
+  MW_SUPPORT_PACKAGE_ROOT: 'D:/sb/bslcicd_0118/matlab'
   MW_RELATIVE_PROJECT_PATH: 'mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/'
   MW_PIPELINE_GEN_DIRECTORY: "_pipelineGen_" 
   MW_IR_DAG_FILE_PATH: ".github/workflows/" 
@@ -20,7 +20,7 @@ env:
   # For Azure Blob storage services, you need to set the Azure storage account connection string in GitHub repository secrets with the 'AZ_CONNECTION_STRING_SECRET' ID. 
 jobs:
   build_files:
-    runs-on: 'padv_linux_vm_agents'
+    runs-on: 'padv_win_agents'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
