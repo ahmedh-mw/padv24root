@@ -31,10 +31,10 @@ function generate_github_pipeline()
     
     % Docker image settings
     op.UseMatlabPlugin = false;
-    op.MatlabLaunchCmd = "matlab -batch"; 
+    % op.MatlabLaunchCmd = "matlab"; 
     % op.MatlabLaunchCmd = "xvfb-run -a matlab-batch";
     % op.MatlabStartupOptions = "";
-    op.AddBatchStartupOption = false;
+    % op.AddBatchStartupOption = false;
     
     padv.pipeline.generatePipeline(op, "CIPipeline");
 end
