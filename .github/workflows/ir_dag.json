@@ -1,0 +1,695 @@
+{
+  "Name": "",
+  "ProcessName": "CIPipeline",
+  "FileName": "simulink_pipeline.yml",
+  "IncrementalPipelineEnabled": true,
+  "StartJobName": "start",
+  "EndJobName": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+  "DerivedFolderPath": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+  "ReportOutputPath": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Report",
+  "HasNestedParallelBranches": false,
+  "Options": {
+    "RunnerLabels": "padv_linux_vm_agents",
+    "RetentionDays": "30",
+    "GeneratedYMLFileName": "simulink_pipeline",
+    "UseMatlabPlugin": false,
+    "EnableArtifactCollection": "always",
+    "ShellEnvironment": "bash",
+    "CheckoutSubmodules": "false",
+    "TemplatePath": "./.github/workflows/generic-job.yml",
+    "RunprocessCommandOptions": {
+      "DryRunLicenseCheckout": false,
+      "RefreshProcessModel": true,
+      "GenerateReport": false,
+      "ReanalyzeProjectAnalysisIssues": true,
+      "ExitInBatchMode": false,
+      "EnableTaskLogging": true,
+      "Force": false,
+      "SuppressOutputWhenInteractive": [],
+      "RerunFailedTasks": false,
+      "RerunErroredTasks": false,
+      "DiscardDictionaryChanges": [],
+      "MakeSureOutputArtifactsWriteable": false,
+      "RunWithoutSaving": false,
+      "ReportFormat": "pdf",
+      "Isolation": false,
+      "EnableOpenTelemetry": false,
+      "GenerateJUnitForProcess": true,
+      "Clean": false,
+      "ReportPath": "ProcessAdvisorReport",
+      "DeleteOutputs": false,
+      "MarkStale": false,
+      "DryRun": false
+    },
+    "PipelineArchitecture": "IndependentModelPipelines",
+    "MatlabLaunchCmd": "xvfb-run -a matlab-batch",
+    "MatlabStartupOptions": "-nodesktop -logfile output.log",
+    "AddBatchStartupOption": false,
+    "GeneratedPipelineDirectory": "_pipelineGen_",
+    "GenerateReport": true,
+    "ReportFormat": "pdf",
+    "ReportPath": "$PROJECTROOT$/PA_Results/Report/ProcessAdvisorReport",
+    "StopOnStageFailure": true,
+    "CheckOutdatedResultsAfterMerge": true,
+    "EnablePipelineCaching": true,
+    "MatlabInstallationLocation": "PATH_TO_MATLAB",
+    "ArtifactZipFileName": "padv_artifacts.zip",
+    "GeneratorVersion": 2,
+    "EnableOpenTelemetry": false,
+    "SupportPackageRoot": "/home/ahmedh/Documents/MATLAB/SupportPackages/R2025b",
+    "RelativeProjectPath": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/",
+    "RemoteBuildCacheName": "GitHub_Project_root1",
+    "ArtifactServiceMode": "azure_blob",
+    "NetworkStoragePath": "",
+    "ArtifactoryUrl": "",
+    "ArtifactoryRepoName": "",
+    "S3BucketName": "",
+    "S3AwsAccessKeyID": "",
+    "AzContainerName": "padvblobcontainer",
+    "RunnerType": "default",
+    "ImageTag": "",
+    "CacheFallbackBranches": [
+      "master",
+      "main",
+      "develop"
+    ]
+  },
+  "Jobs": {
+    "start": {
+      "Name": "start",
+      "Tasks": [],
+      "OutputsPaths": [],
+      "JunitFiles": [],
+      "PredecessorJobsNames": [],
+      "SuccessorJobsNames": [
+        "padv_builtin_task_CollectMetrics_AHRS_Voter",
+        "padv_builtin_task_CollectMetrics_Actuator_Control",
+        "padv_builtin_task_CollectMetrics_Flight_Control",
+        "padv_builtin_task_CollectMetrics_InnerLoop_Control",
+        "padv_builtin_task_CollectMetrics_OuterLoop_Control"
+      ],
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": false,
+      "IsSplittingJob": true,
+      "IsStartJob": true,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": false,
+      "BranchName": "br_start",
+      "DownloadBranchName": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_CollectMetrics_AHRS_Voter": {
+      "Name": "padv_builtin_task_CollectMetrics_AHRS_Voter",
+      "Tasks": "padv.builtin.task.CollectMetrics|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/AHRS_Voter/specification/AHRS_Voter.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/AHRS_Voter/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_CollectMetrics_AHRS_Voter_JUnit.xml",
+      "PredecessorJobsNames": "start",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_AHRS_Voter",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter": {
+      "Name": "padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter",
+      "Tasks": "padv.builtin.task.GenerateSimulinkWebView|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/AHRS_Voter/specification/AHRS_Voter.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/AHRS_Voter/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter_JUnit.xml",
+      "PredecessorJobsNames": "padv_builtin_task_CollectMetrics_AHRS_Voter",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": false,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_AHRS_Voter",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_CollectMetrics_Actuator_Control": {
+      "Name": "padv_builtin_task_CollectMetrics_Actuator_Control",
+      "Tasks": "padv.builtin.task.CollectMetrics|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/Actuator_Control/specification/Actuator_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Actuator_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_CollectMetrics_Actuator_Control_JUnit.xml",
+      "PredecessorJobsNames": "start",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateSimulinkWebView_Actuator_Control",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_Actuator_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_GenerateSimulinkWebView_Actuator_Control": {
+      "Name": "padv_builtin_task_GenerateSimulinkWebView_Actuator_Control",
+      "Tasks": "padv.builtin.task.GenerateSimulinkWebView|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/Actuator_Control/specification/Actuator_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Actuator_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_GenerateSimulinkWebView_Actuator_Control_JUnit.xml",
+      "PredecessorJobsNames": "padv_builtin_task_CollectMetrics_Actuator_Control",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": false,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_Actuator_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_CollectMetrics_Flight_Control": {
+      "Name": "padv_builtin_task_CollectMetrics_Flight_Control",
+      "Tasks": "padv.builtin.task.CollectMetrics|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/Flight_Control/specification/Flight_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Flight_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_CollectMetrics_Flight_Control_JUnit.xml",
+      "PredecessorJobsNames": "start",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateSimulinkWebView_Flight_Control",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_Flight_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_GenerateSimulinkWebView_Flight_Control": {
+      "Name": "padv_builtin_task_GenerateSimulinkWebView_Flight_Control",
+      "Tasks": "padv.builtin.task.GenerateSimulinkWebView|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/Flight_Control/specification/Flight_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Flight_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_GenerateSimulinkWebView_Flight_Control_JUnit.xml",
+      "PredecessorJobsNames": "padv_builtin_task_CollectMetrics_Flight_Control",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": false,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_Flight_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_CollectMetrics_InnerLoop_Control": {
+      "Name": "padv_builtin_task_CollectMetrics_InnerLoop_Control",
+      "Tasks": "padv.builtin.task.CollectMetrics|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/InnerLoop_Control/specification/InnerLoop_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/InnerLoop_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_CollectMetrics_InnerLoop_Control_JUnit.xml",
+      "PredecessorJobsNames": "start",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_InnerLoop_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control": {
+      "Name": "padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control",
+      "Tasks": "padv.builtin.task.GenerateSimulinkWebView|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/InnerLoop_Control/specification/InnerLoop_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/InnerLoop_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control_JUnit.xml",
+      "PredecessorJobsNames": "padv_builtin_task_CollectMetrics_InnerLoop_Control",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": false,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_InnerLoop_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_CollectMetrics_OuterLoop_Control": {
+      "Name": "padv_builtin_task_CollectMetrics_OuterLoop_Control",
+      "Tasks": "padv.builtin.task.CollectMetrics|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/OuterLoop_Control/specification/OuterLoop_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/OuterLoop_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_CollectMetrics_OuterLoop_Control_JUnit.xml",
+      "PredecessorJobsNames": "start",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_OuterLoop_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control": {
+      "Name": "padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control",
+      "Tasks": "padv.builtin.task.GenerateSimulinkWebView|sl_model_file|ProcessAdvisorProjectReferenceExample|02_Models/OuterLoop_Control/specification/OuterLoop_Control.slx",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/OuterLoop_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived"
+      ],
+      "JunitFiles": "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control_JUnit.xml",
+      "PredecessorJobsNames": "padv_builtin_task_CollectMetrics_OuterLoop_Control",
+      "SuccessorJobsNames": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": false,
+      "IsMergingJob": false,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": false,
+      "IsCollectingArtifacts": false,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_CollectMetrics_OuterLoop_Control",
+      "DownloadBranchName": "",
+      "MergingSettings": []
+    },
+    "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs": {
+      "Name": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Tasks": [
+        "padv.builtin.task.GenerateRequirementsReport|mwreq_file|ProcessAdvisorProjectReferenceExample|01_Requirements/HighLevelReqs.slreqx",
+        "padv.builtin.task.GenerateRequirementsReport|mwreq_file|ProcessAdvisorProjectReferenceExample|01_Requirements/SystemReqs.slreqx"
+      ],
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/HighLevelReqs/report",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/SystemReqs/report",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Report"
+      ],
+      "JunitFiles": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_GenerateRequirementsReport_HighLevelReqs_JUnit.xml",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/junit/padv_builtin_task_GenerateRequirementsReport_SystemReqs_JUnit.xml"
+      ],
+      "PredecessorJobsNames": [
+        "padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter",
+        "padv_builtin_task_GenerateSimulinkWebView_Actuator_Control",
+        "padv_builtin_task_GenerateSimulinkWebView_Flight_Control",
+        "padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control",
+        "padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control"
+      ],
+      "SuccessorJobsNames": [],
+      "Commands": [
+        "padv.util.initSessionDataDictionaryCache();",
+        "{{mergeDmrFiles}}",
+        "cp=openProject(pwd);",
+        "{{pruneProcessModel}}",
+        "{{runprocess}}",
+        "{{checkOutdatedResults}}",
+        "{{generate-report}}",
+        "cp.close();",
+        "padv.internal.util.poll(@()~cp.isLoaded, 'timeout', inf);",
+        "exit(exitCode);"
+      ],
+      "IsStartingNewBranch": true,
+      "IsMergingJob": true,
+      "IsSplittingJob": false,
+      "IsStartJob": false,
+      "IsEndJob": true,
+      "IsCollectingArtifacts": true,
+      "IsCollectingJunitFiles": true,
+      "BranchName": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "DownloadBranchName": "",
+      "MergingSettings": {
+        "MergingSequence": [
+          {
+            "Base": "br_start.dmr",
+            "Ours": "br_padv_builtin_task_CollectMetrics_AHRS_Voter.dmr",
+            "Theirs": "br_padv_builtin_task_CollectMetrics_Actuator_Control.dmr",
+            "Merged": "br_start_tmp_1.dmr"
+          },
+          {
+            "Base": "br_start.dmr",
+            "Ours": "br_start_tmp_1.dmr",
+            "Theirs": "br_padv_builtin_task_CollectMetrics_Flight_Control.dmr",
+            "Merged": "br_start_tmp_2.dmr"
+          },
+          {
+            "Base": "br_start.dmr",
+            "Ours": "br_start_tmp_2.dmr",
+            "Theirs": "br_padv_builtin_task_CollectMetrics_InnerLoop_Control.dmr",
+            "Merged": "br_start_tmp_3.dmr"
+          },
+          {
+            "Base": "br_start.dmr",
+            "Ours": "br_start_tmp_3.dmr",
+            "Theirs": "br_padv_builtin_task_CollectMetrics_OuterLoop_Control.dmr",
+            "Merged": "br_start_tmp_4.dmr"
+          }
+        ],
+        "RequiredBaseDMRsBranchesNames": "br_start"
+      }
+    }
+  },
+  "Branches": {
+    "br_start": {
+      "Name": "br_start",
+      "PredecessorBranchesNames": [],
+      "AllPredecessorBranchesNames": [],
+      "SuccessorBranchesNames": [
+        "br_padv_builtin_task_CollectMetrics_AHRS_Voter",
+        "br_padv_builtin_task_CollectMetrics_Actuator_Control",
+        "br_padv_builtin_task_CollectMetrics_Flight_Control",
+        "br_padv_builtin_task_CollectMetrics_InnerLoop_Control",
+        "br_padv_builtin_task_CollectMetrics_OuterLoop_Control"
+      ],
+      "OutputsPaths": [],
+      "JobsNames": "start",
+      "Level": 0
+    },
+    "br_padv_builtin_task_CollectMetrics_AHRS_Voter": {
+      "Name": "br_padv_builtin_task_CollectMetrics_AHRS_Voter",
+      "PredecessorBranchesNames": "br_start",
+      "AllPredecessorBranchesNames": "br_start",
+      "SuccessorBranchesNames": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/AHRS_Voter/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/AHRS_Voter/webview"
+      ],
+      "JobsNames": [
+        "padv_builtin_task_CollectMetrics_AHRS_Voter",
+        "padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter"
+      ],
+      "Level": 1
+    },
+    "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs": {
+      "Name": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "PredecessorBranchesNames": [
+        "br_padv_builtin_task_CollectMetrics_AHRS_Voter",
+        "br_padv_builtin_task_CollectMetrics_Actuator_Control",
+        "br_padv_builtin_task_CollectMetrics_Flight_Control",
+        "br_padv_builtin_task_CollectMetrics_InnerLoop_Control",
+        "br_padv_builtin_task_CollectMetrics_OuterLoop_Control"
+      ],
+      "AllPredecessorBranchesNames": [
+        "br_padv_builtin_task_CollectMetrics_AHRS_Voter",
+        "br_padv_builtin_task_CollectMetrics_Actuator_Control",
+        "br_padv_builtin_task_CollectMetrics_Flight_Control",
+        "br_padv_builtin_task_CollectMetrics_InnerLoop_Control",
+        "br_padv_builtin_task_CollectMetrics_OuterLoop_Control",
+        "br_start"
+      ],
+      "SuccessorBranchesNames": [],
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/AHRS_Voter/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/AHRS_Voter/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Actuator_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Actuator_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Flight_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Flight_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/InnerLoop_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/InnerLoop_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/OuterLoop_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/OuterLoop_Control/webview",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/HighLevelReqs/report",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/SystemReqs/report"
+      ],
+      "JobsNames": "padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Level": 2
+    },
+    "br_padv_builtin_task_CollectMetrics_Actuator_Control": {
+      "Name": "br_padv_builtin_task_CollectMetrics_Actuator_Control",
+      "PredecessorBranchesNames": "br_start",
+      "AllPredecessorBranchesNames": "br_start",
+      "SuccessorBranchesNames": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Actuator_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Actuator_Control/webview"
+      ],
+      "JobsNames": [
+        "padv_builtin_task_CollectMetrics_Actuator_Control",
+        "padv_builtin_task_GenerateSimulinkWebView_Actuator_Control"
+      ],
+      "Level": 1
+    },
+    "br_padv_builtin_task_CollectMetrics_Flight_Control": {
+      "Name": "br_padv_builtin_task_CollectMetrics_Flight_Control",
+      "PredecessorBranchesNames": "br_start",
+      "AllPredecessorBranchesNames": "br_start",
+      "SuccessorBranchesNames": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Flight_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Flight_Control/webview"
+      ],
+      "JobsNames": [
+        "padv_builtin_task_CollectMetrics_Flight_Control",
+        "padv_builtin_task_GenerateSimulinkWebView_Flight_Control"
+      ],
+      "Level": 1
+    },
+    "br_padv_builtin_task_CollectMetrics_InnerLoop_Control": {
+      "Name": "br_padv_builtin_task_CollectMetrics_InnerLoop_Control",
+      "PredecessorBranchesNames": "br_start",
+      "AllPredecessorBranchesNames": "br_start",
+      "SuccessorBranchesNames": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/InnerLoop_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/InnerLoop_Control/webview"
+      ],
+      "JobsNames": [
+        "padv_builtin_task_CollectMetrics_InnerLoop_Control",
+        "padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control"
+      ],
+      "Level": 1
+    },
+    "br_padv_builtin_task_CollectMetrics_OuterLoop_Control": {
+      "Name": "br_padv_builtin_task_CollectMetrics_OuterLoop_Control",
+      "PredecessorBranchesNames": "br_start",
+      "AllPredecessorBranchesNames": "br_start",
+      "SuccessorBranchesNames": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "OutputsPaths": [
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/OuterLoop_Control/metrics",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+        "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/OuterLoop_Control/webview"
+      ],
+      "JobsNames": [
+        "padv_builtin_task_CollectMetrics_OuterLoop_Control",
+        "padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control"
+      ],
+      "Level": 1
+    }
+  },
+  "Stages": [
+    {
+      "Name": "Stage_1",
+      "BranchesNames": "br_start",
+      "Level": 0,
+      "HasParallelBranches": false
+    },
+    {
+      "Name": "Stage_2",
+      "BranchesNames": [
+        "br_padv_builtin_task_CollectMetrics_AHRS_Voter",
+        "br_padv_builtin_task_CollectMetrics_Actuator_Control",
+        "br_padv_builtin_task_CollectMetrics_Flight_Control",
+        "br_padv_builtin_task_CollectMetrics_InnerLoop_Control",
+        "br_padv_builtin_task_CollectMetrics_OuterLoop_Control"
+      ],
+      "Level": 1,
+      "HasParallelBranches": true
+    },
+    {
+      "Name": "Stage_3",
+      "BranchesNames": "br_padv_builtin_task_GenerateRequirementsReport_HighLevelReqs",
+      "Level": 2,
+      "HasParallelBranches": false
+    }
+  ],
+  "OutputsPaths": [
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/AHRS_Voter/webview",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Actuator_Control/webview",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/Flight_Control/webview",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/InnerLoop_Control/webview",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/../../../level1-b/04_Results/OuterLoop_Control/webview",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/AHRS_Voter/metrics",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Actuator_Control/metrics",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Flight_Control/metrics",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/HighLevelReqs/report",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/InnerLoop_Control/metrics",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/OuterLoop_Control/metrics",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/SystemReqs/report",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/derived",
+    "mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/PA_Results/Report"
+  ]
+}

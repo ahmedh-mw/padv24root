@@ -1,0 +1,120 @@
+
+name: GitHub MATLAB Workflow
+on: # You must define at least one trigger for each workflow.
+  workflow_dispatch:  # Set manual triggers as an optional trigger.
+  pull_request:       # Set pull_request as an automatic trigger. 
+                      # By default, a pull_request runs when a pull_request 
+                      # event's activity type is opened, synchronize, or reopened
+    # opened: This triggers the workflow when a pull request is initially opened.
+    # synchronize: This triggers the workflow when new commits are pushed to a pull request branch. This includes any time the pull request's head branch is updated with new commits.
+    # reopened: This triggers the workflow when a previously closed pull request is reopened
+    types: [opened, synchronize, reopened]
+env:
+  MW_SUPPORT_PACKAGE_ROOT: '/home/ahmedh/Documents/MATLAB/SupportPackages/R2025b'
+  MW_RELATIVE_PROJECT_PATH: 'mainproject/level1-a/level2/ProcessAdvisorProjectReferenceExample/'
+  MW_PIPELINE_GEN_DIRECTORY: "_pipelineGen_" 
+  MW_IR_DAG_FILE_PATH: ".github/workflows/" 
+  # Note: You should never hardcode secrets or tokens in the YAML file.
+  # For JFrog Artifactory storage services, you need to set the JFrog API token in GitHub repository secrets with the 'ARTIFACTORY_API_TOKEN_SECRET' ID. 
+  # For S3 storage services, you need to set the AWS S3 access key in GitHub repository secrets with the 'S3_AWS_SECRET_ACCESS_KEY_SECRET' ID. 
+  # For Azure Blob storage services, you need to set the Azure storage account connection string in GitHub repository secrets with the 'AZ_CONNECTION_STRING_SECRET' ID. 
+jobs:
+  build_files:
+    runs-on: 'padv_linux_vm_agents'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Copy workflow files
+        run: >
+          python3 -c "import os; os.makedirs(r'${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}', exist_ok=True); 
+          shutil.copy(r'${{env.MW_IR_DAG_FILE_PATH}}ir_dag.json',r'${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}/')" 
+      - name: Upload workflow files
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow_generated_files
+          path: ${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}/
+  
+  start:
+    needs: [build_files]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: start 
+  
+  padv_builtin_task_CollectMetrics_AHRS_Voter:
+    needs: [start]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_CollectMetrics_AHRS_Voter 
+  
+  padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter:
+    needs: [padv_builtin_task_CollectMetrics_AHRS_Voter]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter 
+  
+  padv_builtin_task_CollectMetrics_Actuator_Control:
+    needs: [start]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_CollectMetrics_Actuator_Control 
+  
+  padv_builtin_task_GenerateSimulinkWebView_Actuator_Control:
+    needs: [padv_builtin_task_CollectMetrics_Actuator_Control]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_GenerateSimulinkWebView_Actuator_Control 
+  
+  padv_builtin_task_CollectMetrics_Flight_Control:
+    needs: [start]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_CollectMetrics_Flight_Control 
+  
+  padv_builtin_task_GenerateSimulinkWebView_Flight_Control:
+    needs: [padv_builtin_task_CollectMetrics_Flight_Control]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_GenerateSimulinkWebView_Flight_Control 
+  
+  padv_builtin_task_CollectMetrics_InnerLoop_Control:
+    needs: [start]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_CollectMetrics_InnerLoop_Control 
+  
+  padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control:
+    needs: [padv_builtin_task_CollectMetrics_InnerLoop_Control]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control 
+  
+  padv_builtin_task_CollectMetrics_OuterLoop_Control:
+    needs: [start]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_CollectMetrics_OuterLoop_Control 
+  
+  padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control:
+    needs: [padv_builtin_task_CollectMetrics_OuterLoop_Control]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control 
+  
+  padv_builtin_task_GenerateRequirementsReport_HighLevelReqs:
+    needs: [padv_builtin_task_GenerateSimulinkWebView_AHRS_Voter, padv_builtin_task_GenerateSimulinkWebView_Actuator_Control, padv_builtin_task_GenerateSimulinkWebView_Flight_Control, padv_builtin_task_GenerateSimulinkWebView_InnerLoop_Control, padv_builtin_task_GenerateSimulinkWebView_OuterLoop_Control]
+    uses: ./.github/workflows/generic-job.yml
+    secrets: inherit
+    with:
+      job-name: padv_builtin_task_GenerateRequirementsReport_HighLevelReqs 
+  
