@@ -42,9 +42,9 @@
       "SuppressOutputWhenInteractive": []
     },
     "PipelineArchitecture": "IndependentModelPipelines",
-    "MatlabLaunchCmd": "matlab -batch",
+    "MatlabLaunchCmd": "matlab",
     "MatlabStartupOptions": "-nodesktop -logfile output.log",
-    "AddBatchStartupOption": false,
+    "AddBatchStartupOption": true,
     "GeneratedPipelineDirectory": "_pipelineGen_",
     "GenerateReport": true,
     "ReportFormat": "pdf",
