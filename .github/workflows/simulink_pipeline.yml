@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Copy workflow files
         run: >
-          python3 -c "import os; os.makedirs(r'${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}', exist_ok=True); 
+          python3 -c "import shutil,os; os.makedirs(r'${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}', exist_ok=True); 
           shutil.copy(r'${{env.MW_IR_DAG_FILE_PATH}}ir_dag.json',r'${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}/')" 
       - name: Upload workflow files
         uses: actions/upload-artifact@v4
