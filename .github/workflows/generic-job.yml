@@ -1,0 +1,49 @@
+name: Reusable Workflow - Generic Job
+on:
+  workflow_dispatch:
+  workflow_call:
+    inputs:
+      job-name:
+        required: true
+        type: string
+jobs:
+  Generic-Job:
+    name: Generic Job
+    runs-on: 'padv_win_agents'
+    env:
+      MW_SUPPORT_PACKAGE_ROOT: 'D:/sb/r24b0811/matlab' 
+      MW_RELATIVE_PROJECT_PATH: 'level1-a/level2/ProcessAdvisorProjectReferenceExample/' 
+      MW_REMOTE_BUILD_CACHE_NAME: GitHub_Project1  
+      MW_PIPELINE_GEN_DIRECTORY: '_pipelineGen_' 
+      _MW_PIPELINE_WORKSPACE_PATH_KEY: GITHUB_WORKSPACE
+      _MW_PIPELINE_WORKSPACE_TEMP_PATH_KEY: RUNNER_TEMP
+      MW_PIPELINE_UTIL_PATH: 'D:/sb/r24b0811/matlab/toolbox/padv/pipeline_generator/ci'
+      ARTIFACTORY_API_TOKEN: ${{ secrets.ARTIFACTORY_API_TOKEN_SECRET }}
+      S3_AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_AWS_SECRET_ACCESS_KEY_SECRET }}
+      AZ_CONNECTION_STRING: ${{ secrets.AZ_CONNECTION_STRING_SECRET }}
+      MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN_SECRET }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Download workflow generated files
+        uses: actions/download-artifact@v4
+        with:
+          name: workflow_generated_files
+          path: ${{env.MW_RELATIVE_PROJECT_PATH}}${{env.MW_PIPELINE_GEN_DIRECTORY}}
+      - name: Load environment variables
+        run: "python3 ${{ env.MW_PIPELINE_UTIL_PATH }}/py/prepare.py --clean_temp_gen_area --jobname \"${{ inputs.job-name }}\" --pipeline_prepare --platform github" 
+      - name: Download Artifacts
+        run: "python3 ${{ env.MW_PIPELINE_UTIL_PATH }}/py/job_download.py --jobname \"${{ inputs.job-name }}\"" 
+      - name: Execute Job Tasks
+        run: "${{ env._MW_PIPELINE_TEMP_GEN_PATH }}/shell_commands" 
+      - name: Upload Job Artifacts
+        run: "python3 ${{ env.MW_PIPELINE_UTIL_PATH }}/py/job_delta_upload.py --jobname \"${{ inputs.job-name }}\" --job_status \"${{ job.status }}\" --skip_compression" 
+        if: always() && !cancelled()
+      - name: Upload Pipeline Artifacts
+        if: ${{ always() && !cancelled() && env._MW_PIPELINE_JOB_IS_COLLECTING_ARTIFACTS == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env._MW_PIPELINE_OPTIONS_ARTIFACTS_FILE_NAME_STEM }}
+          path: ${{ env._MW_PIPELINE_OPTIONS_ARTIFACTS_FILE_NAME_STEM }}/
