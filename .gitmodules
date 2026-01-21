@@ -1,3 +1,3 @@
 [submodule "mainproject"]
 	path = mainproject
-	url = git@insidelabs-git.mathworks.com:ahmedh/padv24prj.git
+	url = git@github.com:ahmedh-mw/padv24prj.git
